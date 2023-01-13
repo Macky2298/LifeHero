@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978406390031",
+    "project_id": "sad2final",
+    "storage_bucket": "sad2final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978406390031:android:bae23c0ff3c0259883a67a",
+        "android_client_info": {
+          "package_name": "com.example.sad2final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978406390031-m4m3bpjnrve795et7pl69g6620itq5bo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr_hCaMzhXFhweMpzq_As1ChzA6_tduLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978406390031-m4m3bpjnrve795et7pl69g6620itq5bo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
