@@ -1,4 +1,25 @@
 <resources>
+
     <string name="app_name">Life Hero </string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Add here alphabetically -->
+    <string name="str_address">Address</string>
+    <string name="str_add_agency">Add Agency</string>
+    <string name="str_agency">Agency</string>
+    <string name="str_agencies">Agencies</string>
+    <string name="str_alert_button">Alert Button!</string>
+    <string name="str_department">Department</string>
+    <string name="str_date">Date</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_contact_no">Contact No</string>
+    <string name="str_current_location">Current Location</string>
+    <string name="str_location">Location</string>
+    <string name="str_save">Save</string>
+    <string name="str_user_data">User Data</string>
+    <string name="str_user_report">User Report</string>
+
 </resources>

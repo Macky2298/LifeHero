@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00CD852D"
-    tools:context=".Home">
+    tools:context=".view.Home">
 
+    <Button
+        android:id="@+id/btn_user_data"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/str_user_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.865" />
 
     <Button
         android:id="@+id/btn_agencies"
         android:layout_width="181dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:text="Agencies"
+        android:text="@string/str_agencies"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
@@ -27,7 +40,7 @@
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="current location"
+        android:text="@string/str_current_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.927"
@@ -52,7 +65,8 @@
         android:layout_width="247dp"
         android:layout_height="41dp"
         android:layout_marginBottom="204dp"
-        android:text="ALERT BUTTON!"
+        android:gravity="center"
+        android:text="@string/str_alert_button"
         android:textColor="#EF081A"
         android:textSize="32sp"
         android:textStyle="bold"

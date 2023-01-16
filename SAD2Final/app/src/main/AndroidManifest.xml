@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sad2final">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="CoarseFineLocation" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
@@ -15,9 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SAD2Final"
         tools:targetApi="31">
-        <activity
-            android:name=".InfoAgencies"
-            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -34,26 +34,32 @@
             android:value="AIzaSyCJPltS3cTsX4G_ht9IIniCRJdObZ5VT6w" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".RescueTeams"
+            android:name=".view.RescueTeams"
             android:exported="false" />
         <activity
-            android:name=".profile"
+            android:name=".view.profile"
             android:exported="false" />
         <activity
-            android:name=".ForgotPassword"
+            android:name=".view.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".view.Home"
             android:exported="false" />
         <activity
-            android:name=".Signup"
+            android:name=".view.Signup"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.userreport.UserReportFragmentActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.agency.AgencyFragmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
