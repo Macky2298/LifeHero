@@ -35,6 +35,7 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
     private LocationHandler mLocationHandler;
     private Location mLocation;
     private FirebaseData mFirebaseData;
+    private SmsManager mSmsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
 
         mLocationHandler = new LocationHandler(this);
         mFirebaseData = new FirebaseData();
+        mSmsManager = SmsManager.getDefault();
 
         ImageButton police = (ImageButton) findViewById(R.id.rt_policebtn);
         police.setOnClickListener(this);
@@ -59,6 +61,7 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
         sar.setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         mLocationHandler.getLocation(location -> {
@@ -138,8 +141,7 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
                     sendToRecordAlert(reportData);
                 }
 
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(number, null, alertMessage, null, null);
+                mSmsManager.sendTextMessage(number, null, alertMessage, null, null);
                 Toast.makeText(RescueTeams.this, alertMessage, Toast.LENGTH_SHORT).show();
                 dialog1.dismiss();
             })
