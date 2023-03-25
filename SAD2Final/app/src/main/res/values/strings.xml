@@ -19,6 +19,7 @@
     <string name="str_current_location">Current Location</string>
     <string name="str_location">Location</string>
     <string name="str_save">Save</string>
+    <string name="str_select_date">Select Date</string>
     <string name="str_user_data">User Data</string>
     <string name="str_user_report">User Report</string>
 

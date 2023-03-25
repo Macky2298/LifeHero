@@ -1,9 +1,14 @@
 package com.example.sad2final.view.userreport;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.ClipData;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
@@ -23,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +48,8 @@ public class UserReportFragmentActivity extends FragmentActivity {
     private ArrayList<UserReportModel> userReportDataArrayList = new ArrayList<>();
     private ArrayList<Date> mReportDateList = new ArrayList<>();
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy");
+    private Date dateFrom = null;
+    private Date dateTo = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +61,8 @@ public class UserReportFragmentActivity extends FragmentActivity {
         RecyclerView recyclerView = mBinding.listItem;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        SearchView searchView = mBinding.reportSearchView;
-        SearchView searchView1 = mBinding.reportSearchView1;
+        Button dateFromButton = mBinding.dateFromButton;
+        Button dateToButton = mBinding.dateToButton;
         SearchView searchView2 = mBinding.reportSearchView2;
 
         userReportAdapter = new UserReportAdapter(this, userReportArrayList);
@@ -98,35 +106,43 @@ public class UserReportFragmentActivity extends FragmentActivity {
                 });
 
         // FROM
-        searchView.clearFocus();
-        searchView.setOnQueryTextListener(new OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+        dateFromButton.clearFocus();
+        dateFromButton.setOnClickListener(view -> {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int date = calendar.get(Calendar.DATE);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                Log.d(getClass().getSimpleName(), "User search input: " + s);
-                filterList(SearchType.DATE, s);
-                return true;
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(UserReportFragmentActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    dateFrom = new Date(year, month, dayOfMonth);
+                    dateFromButton.setText(dateFrom.toString());
+                    filterByDate(dateFrom, dateTo);
+                    Log.e(getClass().getSimpleName(), dateFrom.toString());
+                }
+            }, year, month, date);
+            datePickerDialog.show();
         });
 
         // TO
-        searchView1.clearFocus();
-        searchView1.setOnQueryTextListener(new OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+        dateToButton.clearFocus();
+        dateToButton.setOnClickListener(view -> {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int date = calendar.get(Calendar.DATE);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                Log.d(getClass().getSimpleName(), "User search input: " + s);
-                filterList(SearchType.DATE, s);
-                return true;
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(UserReportFragmentActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    dateTo = new Date(year, month, dayOfMonth);
+                    dateTo.setText(dateFrom.toString());
+                    filterByDate(dateFrom, dateTo);
+                    Log.e(getClass().getSimpleName(), dateFrom.toString());
+                }
+            }, year, month, date);
+            datePickerDialog.show();
         });
 
         // DEPARTMENT
