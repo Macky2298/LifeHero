@@ -22,7 +22,7 @@
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="361dp"
+        android:layout_width="334dp"
         android:layout_height="50dp"
         android:ems="10"
         android:hint="Complete Name"
@@ -84,7 +84,7 @@
 
     <Button
         android:id="@+id/btn_reg"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="6dp"
         android:text="REGISTER"

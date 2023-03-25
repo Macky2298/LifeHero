@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -48,17 +49,19 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
         mFirebaseData = new FirebaseData();
         mSmsManager = SmsManager.getDefault();
 
-        ImageButton police = (ImageButton) findViewById(R.id.rt_policebtn);
+        Button police = (Button) findViewById(R.id.rt_policebtn);
         police.setOnClickListener(this);
 
-        ImageButton fire = (ImageButton) findViewById(R.id.rt_firebtn);
+        Button fire = (Button) findViewById(R.id.rt_firebtn);
         fire.setOnClickListener(this);
 
-        ImageButton hospital = (ImageButton) findViewById(R.id.rt_hospitalbtn);
+        Button hospital = (Button) findViewById(R.id.rt_hospitalbtn);
         hospital.setOnClickListener(this);
 
-        ImageButton sar = (ImageButton) findViewById(R.id.rt_sarbtn);
+        Button sar = (Button) findViewById(R.id.rt_sarbtn);
         sar.setOnClickListener(this);
+
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -69,15 +72,15 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
 
             String alertMessage = "Sorry we cannot locate you! \nNo internet connection";
 
-            String policeNo = "1";
-            String hospitalNo = "2";
-            String fireNo = "3";
-            String sarNo = "4";
+            String policeNo = "09123456789";
+            String hospitalNo = "0912345678*";
+            String fireNo = "091234567**";
+            String sarNo = "09123456***";
 
             String policeStr = "Police";
             String hospitalStr = "Hospital";
-            String fireStr = "Fire fighter";
-            String sarStr = "Search and Rescue";
+            String fireStr = "Fire Department";
+            String sarStr = "Search and Rescue Team";
 
             String number = "";
             String departmentStr = "";
@@ -118,7 +121,7 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
                     );
 
                     alert(number,
-                        departmentStr.toUpperCase() + "! ALERT! NEED RESCUE!" +
+                        "ALERT! NEED RESCUE!" +
                         "\n\nCurrent location Latitude: " + mLocation.getLatitude() + ", Longitude: " + mLocation.getLongitude() +
                         "\n\nCurrent address: " + address,
                         reportData);
@@ -159,7 +162,6 @@ public class RescueTeams extends AppCompatActivity implements View.OnClickListen
                     if (snapshot.exists()) {
                         childCount = snapshot.getChildrenCount();
                     }
-
                     mFirebaseData.getDatabase()
                             .getReference(mFirebaseData.getEndpointReports() + "/" + childCount)
                             .setValue(reportData)

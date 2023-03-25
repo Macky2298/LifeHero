@@ -6,13 +6,96 @@
     android:orientation="vertical"
     android:padding="10sp"
     tools:context=".view.userreport.UserReportFragmentActivity" >
-
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/str_user_report" />
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:text="@string/str_user_report"
+            android:textColor="#F6754C"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:text="From:"
+            android:textColor="#F6754C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <SearchView
+            android:id="@+id/reportSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:text="To:"
+            android:textColor="#F6754C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <SearchView
+            android:id="@+id/reportSearchView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:text="Department"
+            android:textColor="#F6754C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <SearchView
+            android:id="@+id/reportSearchView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

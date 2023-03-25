@@ -1,5 +1,6 @@
 package com.example.sad2final.view.userreport;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,13 @@ public class UserReportAdapter extends RecyclerView.Adapter<UserReportAdapter.Vi
         holder.addressTextView.setText(userReport.getAddress());
         holder.locationTextView.setText(userReport.getLocation());
         holder.departmentTextView.setText(userReport.getDepartment());
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(ArrayList<UserReportModel> userReportArrayList) {
+        mUserReportList.clear();
+        mUserReportList.addAll(userReportArrayList);
+        notifyDataSetChanged();
     }
 
     @Override

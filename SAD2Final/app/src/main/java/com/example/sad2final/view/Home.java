@@ -40,8 +40,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         Button userLocation = (Button) findViewById(R.id.btn_userloc);
         userLocation.setOnClickListener(this);
 
-        Button agencies = (Button) findViewById(R.id.btn_agencies);
-        agencies.setOnClickListener(this);
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -64,9 +63,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 startActivity(new Intent(this, MapsActivity.class));
                 break;
 
-            case R.id.btn_agencies:
-                startActivity(new Intent(this, AgencyFragmentActivity.class));
-                break;
+
+
+
         }
     }
 }

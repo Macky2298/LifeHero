@@ -23,8 +23,8 @@
 
     <EditText
         android:id="@+id/email_login"
-        android:layout_width="361dp"
-        android:layout_height="60dp"
+        android:layout_width="334dp"
+        android:layout_height="55dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
@@ -35,8 +35,8 @@
 
     <EditText
         android:id="@+id/password_login"
-        android:layout_width="361dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Password"
@@ -50,13 +50,12 @@
         android:id="@+id/tv_forgotpass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Forgot Password"
         android:textColor="#F6754C"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <TextView
@@ -64,11 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="Register"
         android:textColor="#F6754C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
