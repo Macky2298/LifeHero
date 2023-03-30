@@ -36,18 +36,13 @@ import java.util.Locale;
 
 public class UserReportFragmentActivity extends FragmentActivity {
 
-    private enum SearchType {
-        DATE,
-        DEPARTMENT
-    }
-
-    private FragmentActivityUserReportBinding mBinding;
-    private FirebaseData mFirebaseData;
     private UserReportAdapter userReportAdapter;
-    private ArrayList<UserReportModel> userReportArrayList = new ArrayList<>();
-    private ArrayList<UserReportModel> userReportDataArrayList = new ArrayList<>();
-    private ArrayList<Date> mReportDateList = new ArrayList<>();
-    private SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy");
+    private final ArrayList<UserReportModel> userReportArrayList = new ArrayList<>();
+    private final ArrayList<UserReportModel> userReportDataArrayList = new ArrayList<>();
+    private final ArrayList<Date> mReportDateList = new ArrayList<>();
+    @SuppressLint("SimpleDateFormat")
+    private final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy");
+    private String mSearch = "";
     private Date dateFrom = null;
     private Date dateTo = null;
 
@@ -55,7 +50,7 @@ public class UserReportFragmentActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinding = FragmentActivityUserReportBinding.inflate(getLayoutInflater());
+        com.example.sad2final.databinding.FragmentActivityUserReportBinding mBinding = FragmentActivityUserReportBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
         RecyclerView recyclerView = mBinding.listItem;
@@ -69,7 +64,7 @@ public class UserReportFragmentActivity extends FragmentActivity {
 
         recyclerView.setAdapter(userReportAdapter);
 
-        mFirebaseData = new FirebaseData();
+        FirebaseData mFirebaseData = new FirebaseData();
         mFirebaseData.getDatabase().getReference(mFirebaseData.getEndpointReports())
                 .addValueEventListener(new ValueEventListener() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -118,8 +113,12 @@ public class UserReportFragmentActivity extends FragmentActivity {
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     dateFrom = new Date(year, month, dayOfMonth);
                     dateFromButton.setText(dateFrom.toString());
-                    filterByDate(dateFrom, dateTo);
-                    Log.e(getClass().getSimpleName(), dateFrom.toString());
+                    try {
+                        filterList(mSearch);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e(getClass().getSimpleName(), "Date from " + dateFrom.toString());
                 }
             }, year, month, date);
             datePickerDialog.show();
@@ -137,9 +136,13 @@ public class UserReportFragmentActivity extends FragmentActivity {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     dateTo = new Date(year, month, dayOfMonth);
-                    dateTo.setText(dateFrom.toString());
-                    filterByDate(dateFrom, dateTo);
-                    Log.e(getClass().getSimpleName(), dateFrom.toString());
+                    dateToButton.setText(dateTo.toString());
+                    try {
+                        filterList(mSearch);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e(getClass().getSimpleName(), "Date to " + dateTo.toString());
                 }
             }, year, month, date);
             datePickerDialog.show();
@@ -155,70 +158,66 @@ public class UserReportFragmentActivity extends FragmentActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d(getClass().getSimpleName(), "User search input: " + s);
-                filterList(SearchType.DEPARTMENT, s);
+                mSearch = s;
+                try {
+                    filterList(s);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
         });
     }
-    
-    private void filterByDate(Date fromDate, Date toDate) {
-        if (fromDate == null) {
-            Log.e(getClass().getSimpleName(), "From Date is empty");
-            return;
-        }
 
-        List<Date> dateList = new ArrayList<>();
-        for (Date date : mReportDateList) {
-            if (toDate == null) {
-                if (fromDate.after(new Date())) {
-                    dateList.add(date);
-                }
+    private void filterList (String searchText) throws ParseException {
+        ArrayList<UserReportModel> filteredArrayList = new ArrayList<>(filteredList(userReportDataArrayList,  searchText));
 
-                continue;
-            }
-
-            if (fromDate.after(toDate)) {
-                dateList.add(date);
-            }
-        }
-
-        for (Date date : dateList) {
-            Log.e(getClass().getSimpleName(), date.toString());
-        }
-    }
-
-    private void filterList (SearchType searchType, String searchText) {
-        ArrayList<UserReportModel> filteredArrayList = new ArrayList<>(filteredList(userReportDataArrayList, searchType, searchText));
-
-        if (searchText.isEmpty()) {
+        if (dateFrom == null && dateTo == null && searchText.isEmpty()) {
             filteredArrayList = userReportDataArrayList;
-        } else {
-            if (!filteredArrayList.isEmpty()) {
-                for (UserReportModel reportModel : userReportArrayList) {
-                    if (reportModel.getDepartment().toLowerCase().contains(searchText.toLowerCase())) {
-                        filteredArrayList.add(reportModel);
-                    }
-                }
-            } else {
-                filteredArrayList = userReportDataArrayList;
-            }
         }
+
         userReportAdapter.updateData(filteredArrayList);
     }
 
-    private ArrayList<UserReportModel> filteredList(ArrayList<UserReportModel> userReportArrayList, SearchType searchType, String searchText) {
+    private ArrayList<UserReportModel> filteredList(ArrayList<UserReportModel> userReportArrayList, String searchText) throws ParseException {
         ArrayList<UserReportModel> filteredArrayList = new ArrayList<>();
-        for (UserReportModel reportModel : userReportArrayList) {
-            if (searchType.equals(SearchType.DATE)) {
-                if (reportModel.getDate().toLowerCase().contains(searchText.toLowerCase())) {
-                    filteredArrayList.add(reportModel);
+        for (UserReportModel report : userReportArrayList) {
+            Date date = mDateFormat.parse(report.getDate());
+
+            assert date != null;
+            if (dateFrom == null) {
+                if (report.getDepartment().toLowerCase().contains(searchText.toLowerCase())) {
+                    filteredArrayList.add(report);
                 }
-            } else if (searchType.equals(SearchType.DEPARTMENT)) {
-                if (reportModel.getDepartment().toLowerCase().contains(searchText.toLowerCase())) {
-                    filteredArrayList.add(reportModel);
+            } else {
+                if (dateTo == null) {
+                    if (date.getMonth() >= dateFrom.getMonth() &&
+                            date.getDate() >= dateFrom.getDate()) {
+                        if (searchText.isEmpty()) {
+                            if (report.getDepartment().toLowerCase().contains(searchText.toLowerCase())) {
+                                filteredArrayList.add(report);
+                            }
+                        } else {
+                            filteredArrayList.add(report);
+                        }
+                    }
+                } else {
+                    if ((date.getMonth() >= dateFrom.getMonth() && date.getDate() >= dateFrom.getDate()) &&
+                            (date.getMonth() <= dateTo.getMonth() && date.getDate() <= dateTo.getDate())) {
+                        if (searchText.isEmpty()) {
+                            filteredArrayList.add(report);
+                        } else {
+                            if (report.getDepartment().toLowerCase().contains(searchText.toLowerCase())) {
+                                filteredArrayList.add(report);
+                            }
+                        }
+                    }
                 }
             }
+        }
+
+        for (UserReportModel report : filteredArrayList) {
+            Log.e(getClass().getSimpleName(), "" + report.getDate() + ", " + report.getDepartment());
         }
 
         return filteredArrayList;
